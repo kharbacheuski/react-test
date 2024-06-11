@@ -1,0 +1,26 @@
+
+// breakpoints
+$breakpoint-extra-sm: 420px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 767px;
+$breakpoint-lg: 991px;
+$breakpoint-header-mobile: 991px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+:root {
+    --font-regular: "Mulish-Regular", sans-serif;
+    --font-semibold: "Mulish-SemiBold", sans-serif;
+    --font-bold: "Mulish-Bold", sans-serif;
+    
+    --color-blue: #f1f5ff;
+    --color-blue_hover: #92b9ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: var(--font-regular);
+}
