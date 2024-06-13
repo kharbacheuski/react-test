@@ -5,9 +5,6 @@ import path from 'node:path';
 export default defineConfig(({ command, mode }) => {
 	return {
 		plugins: [react()],
-		build: {
-			outDir: 'public',
-		},
 		resolve: {
 			alias: {
 				"@": path.resolve(__dirname, "./src"),

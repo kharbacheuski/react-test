@@ -6,7 +6,6 @@ import QuestionsList from "./QuestionsList";
 import ReplayIcon from "@mui/icons-material/Replay";
 import { FC, useContext, useEffect } from "react";
 import { AnswersContext } from "../../Main"
-import { useMemo } from "react";
 
 type Props = {
     test: string
