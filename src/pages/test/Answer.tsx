@@ -1,5 +1,5 @@
-import { Box, Typography } from "@mui/material"
-import { FC, Fragment, useContext } from "react"
+import { Box, Typography, Button } from "@mui/material"
+import { FC, Fragment, useContext, useEffect, useState } from "react"
 import { AnswersContext } from "../../Main"
 import {useTheme} from "@mui/material"
 
@@ -11,17 +11,35 @@ export type AnswerDataType= {
 
 type Props = {
     answerData: AnswerDataType
-    id: number
+    id: number,
+    singleCorrect?: boolean
 }
 
-const Answer: FC<Props> = ({ answerData, id}) => {
+export const SingleCorrectAnswer: FC<Props> = (props) => {
+    const [isOpened, setIsOpened] = useState(false)
+
+    const buttonMessage = isOpened ? "Скрыть ответ" : "Показать ответ"
+
+    const toggleIsOpened = () => setIsOpened(prev => !prev)
+
+    useEffect(() => {
+        setIsOpened(false)
+    }, [props.answerData])
+
+    return <Box>
+        {isOpened && <Answer {...props} singleCorrect={true} />}
+        <Button variant="contained" sx={{marginTop: "20px"}} onClick={toggleIsOpened}>{buttonMessage}</Button>
+    </Box>
+}
+
+const Answer: FC<Props> = ({ answerData, id, singleCorrect }) => {
     const { title, isCorrect} = answerData
     const {answers, setAnswers, currentQuestion} = useContext(AnswersContext)
 
     const userAnswer = answers[currentQuestion]
 
     const takeAnswer = (id: number) => {
-        if(!userAnswer) {
+        if(!userAnswer && !singleCorrect) {
             setAnswers(prev => ({...prev, [currentQuestion]: {answerNumber: id, isCorrect}}))
         }
     }
@@ -45,10 +63,10 @@ const Answer: FC<Props> = ({ answerData, id}) => {
                 padding: "20px 30px", 
                 borderRadius: 2, 
                 backgroundColor: answerColor(),
-                cursor: "pointer",
+                cursor: !singleCorrect ? "pointer" : "initial",
                 transition: "all 0.1s",
 
-                "&:hover": !userAnswer ? {
+                "&:hover": (!singleCorrect && !userAnswer) ? {
                     backgroundColor: "var(--color-blue_hover)"
                 } : null
             }}

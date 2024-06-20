@@ -3,7 +3,7 @@ import data from "../questions.json"
 import TestCard from "../components/TestCard"
 
 const Home = () => {
-    const tests = Object.keys(data)
+    const tests = Object.keys(data).sort((a, b) => data[a].questions.length > 0 ? -1 : 1)
 
     return <Box sx={{ mt: 10 }}>
         <Typography variant="h3">Выберите тест</Typography>

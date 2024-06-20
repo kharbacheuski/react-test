@@ -5,15 +5,21 @@ import AnswersList from "./AnswersList"
 import { AnswersContext } from "../../Main"
 import Message from "../../components/Message"
 
+export enum QuestionType {
+    multianswer,
+    singleanswer
+}
+
 export type QuestionDataType = {
+    type: QuestionType
     id: number
-    type?: "react" | "html" | "typescript" | "css"
+    topic?: "react" | "html" | "typescript" | "css"
     title: string
     description: string
     answers: AnswerDataType[]
 }
 
-const Question: FC<QuestionDataType> = ({ title, answers }) => {
+const Question: FC<QuestionDataType> = ({ title, answers, description, type }) => {
     const correctAnswerIndex = answers.findIndex((answer) => answer.isCorrect)
 
     const message = {
@@ -29,8 +35,9 @@ const Question: FC<QuestionDataType> = ({ title, answers }) => {
     return (
         <Box>
             <Typography variant="h5">{title}</Typography>
+            {description && <Typography sx={{ margin: "15px 0 30px" }}>{description}</Typography>}
 
-            <AnswersList answers={answers} />
+            <AnswersList type={type} answers={answers} />
             <Message 
                 isOpen={isMessageVisible} 
                 message={isUserAnswerCorrect ? message.success : message.error} 

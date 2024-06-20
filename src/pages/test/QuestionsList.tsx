@@ -8,7 +8,7 @@ const QuestionsList: FC<{questions: QuestionDataType[]}> = ({questions}) => {
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4, marginTop: 7 }}> 
-            <Question type="react" {...questions[currentQuestion - 1]} />
+            <Question topic="react" {...questions[currentQuestion - 1]} />
         </Box>
     )
 }   
